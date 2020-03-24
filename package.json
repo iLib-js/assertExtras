@@ -26,7 +26,7 @@
         "type": "git",
         "url": "git@github.com:iLib-js/assertExtras.git"
     },
-    "dependencies": {
+    "peerDependencies": {
         "nodeunit": "^0.11.3"
     }
 }
