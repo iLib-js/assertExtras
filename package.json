@@ -1,0 +1,32 @@
+{
+    "name": "assertExtras",
+    "version": "1.1.0",
+    "main": "./assertExtras.js",
+    "description": "extra assertion types for nodeunit",
+    "keywords": [
+        "testing"
+    ],
+    "license": "Apache-2.0",
+    "author": {
+        "name": "Edwin Hoogerbeets",
+        "email": "ehoogerbeets@gmail.com"
+    },
+    "contributors": [
+        {
+            "name": "Edwin Hoogerbeets",
+            "email": "ehoogerbeets@gmail.com"
+        }
+    ],
+    "files": [
+        "assertExtras.js",
+        "README.md",
+        "LICENSE"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:iLib-js/assertExtras.git"
+    },
+    "dependencies": {
+        "nodeunit": "^0.11.3"
+    }
+}
