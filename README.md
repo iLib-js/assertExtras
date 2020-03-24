@@ -3,7 +3,8 @@
 Used to extend the assertion types available in nodeunit. To use, simply call:
 
 ```javascript
-require("assertExtras");
+var assert = require("nodeunit/lib/assert");
+require("assertExtras")(assert);
 ```
 
 At the top of you test suite, and it will monkey-patch the assertions in nodeunit
