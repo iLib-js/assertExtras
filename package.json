@@ -1,6 +1,6 @@
 {
     "name": "assertextras",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "./assertExtras.js",
     "description": "extra assertion types for nodeunit",
     "keywords": [
