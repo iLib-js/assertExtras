@@ -20,6 +20,22 @@
 module.exports = function(assert) {
     //  monkey patch some extra assertions in there for convenience
 
+    /**
+     * Added for browser compatibility
+     */
+
+    var _keys = function(obj){
+        if(Object.keys) return Object.keys(obj);
+        if (typeof obj != 'object' && typeof obj != 'function') {
+            throw new TypeError('-');
+        }
+        var keys = [];
+        for(var k in obj){
+            if(obj.hasOwnProperty(k)) keys.push(k);
+        }
+        return keys;
+    };
+
     function fail(actual, expected, message, operator, stackStartFunction) {
         throw new assert.AssertionError({
             message: message,
@@ -41,6 +57,7 @@ module.exports = function(assert) {
     function objEquiv (a, b) {
         if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
             return false;
+
         // an identical "prototype" property.
         if (a.prototype !== b.prototype) return false;
         //~~~I've managed to break Object.keys through screwy arguments passing.
@@ -87,15 +104,15 @@ module.exports = function(assert) {
             return true;
 
         // Convert to primitives, if supported
-        actual = actual.valueOf ? actual.valueOf() : actual;
-        expected = expected.valueOf ? expected.valueOf() : expected;
+        actual = actual && actual.valueOf ? actual.valueOf() : actual;
+        expected = expected && expected.valueOf ? expected.valueOf() : expected;
 
         // 7.2. If the expected value is a Date object, the actual value is
         // equivalent if it is also a Date object that refers to the same time.
         if (actual instanceof Date && expected instanceof Date) {
             return actual.getTime() === expected.getTime();
 
-            // 7.2.1 If the expcted value is a RegExp object, the actual value is
+            // 7.2.1 If the expected value is a RegExp object, the actual value is
             // equivalent if it is also a RegExp object that refers to the same source and options
         } else if (actual instanceof RegExp && expected instanceof RegExp) {
             return actual.source === expected.source &&
@@ -162,6 +179,15 @@ module.exports = function(assert) {
 
     function isArray(object) {
         return typeof(object) === 'object' && Object.prototype.toString.call(object) === '[object Array]';
+    };
+
+    /**
+     * Fix the existing deepEqual in nodeunit, as there are a few bugs in it.
+     */
+    assert.deepEqual = function deepEqual(actual, expected, message) {
+        if (!_deepEqual(actual, expected)) {
+            fail(actual, expected, message, "deepEqual", assert.deepEqual);
+        }
     };
 
     /**
