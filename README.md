@@ -17,3 +17,14 @@ floating point numbers to make sure they are close enough
 - contains: make sure all the properties in the expected object also exist
 in the actual object. The actual object may have more properties. The ones
 in the expected object must exist, and anything else is optional.
+
+# Release Notes
+
+v1.1.0
+
+Added updated assert.deepEqual. The old deepEqual would throw 
+exceptions if one of the two objects passed in were undefined or null.
+The part of object equality checking which checks if the objects are
+primitives would dereference the objects to call their valueOf()
+methods. Of course, you can't dereference undefined or null, so the
+exception would get thrown.
